@@ -1,0 +1,4 @@
+fastapi==0.104.1
+hypercorn==0.15.0
+anthropic==0.92.0
+gtts==2.4.0
