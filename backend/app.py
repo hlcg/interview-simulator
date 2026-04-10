@@ -78,7 +78,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-init_db()
+#init_db() # Appelée à la demande via un endpoint 
 
 # Pydantic Models
 class GenerateQuestionsRequest(BaseModel):
