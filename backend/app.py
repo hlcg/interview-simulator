@@ -20,6 +20,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# AJOUTE LE EVENT HANDLER ICI
+@app.on_event("startup")
+def startup_event():
+    init_db()
+
 # Lazy loading du client Anthropic (évite le problème "proxies" sur Railway)
 _client = None
 
