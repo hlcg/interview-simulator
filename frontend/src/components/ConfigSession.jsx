@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API } from '../api';
 
 function ConfigSession({ onStart }) {
   const [sector, setSector] = useState('');
@@ -20,20 +21,13 @@ function ConfigSession({ onStart }) {
     
     try {
       // Générer les questions en premier
-      const questionsResponse = await fetch(
-        'https://interview-backend-production-eaed.up.railway.app/api/generate-questions',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            sector,
-            job_offer: jobOffer,
-            cv,
-            duration,
-            tone
-          })
-        }
-      );
+      const questionsResponse = await API.generateQuestions({
+  sector: sector,
+  job_offer: jobOffer,
+  cv: cv,
+  duration: duration,
+  tone: tone
+});
 
       if (!questionsResponse.ok) {
         throw new Error('Erreur lors de la génération des questions');
