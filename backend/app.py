@@ -23,7 +23,11 @@ app.add_middleware(
 # AJOUTE LE EVENT HANDLER ICI
 @app.on_event("startup")
 def startup_event():
-    init_db()
+    try:
+        init_db()
+        print("✅ Database initialized successfully")
+    except Exception as e:
+        print(f"❌ ERROR initializing database: {e}")
 
 # Lazy loading du client Anthropic (évite le problème "proxies" sur Railway)
 _client = None
