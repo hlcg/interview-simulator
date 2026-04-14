@@ -30,31 +30,14 @@ function App() {
     }
   };
 
-  const handleAnswersComplete = async (answers) => {
-    try {
-      const response = await fetch('https://interview-backend-production-eaed.up.railway.app/api/session/complete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          session_id: sessionData.session_id,
-          sector: sessionData.sector,
-          job_offer: sessionData.job_offer,
-          cv: sessionData.cv,
-          answers: answers,
-          tone: sessionData.tone
-        })
-      });
-      
-      const report = await response.json();
-      setReportData({ ...report, session_id: sessionData.session_id });
-      setCurrentPage('report');
-      
-      // Recharger l'historique
-      loadHistory();
-    } catch (error) {
-      console.error('Erreur:', error);
-      alert('Erreur lors de la génération du rapport');
-    }
+const handleAnswersComplete = async (result) => {
+    setReportData({
+      report: result.report,
+      answers: result.answers,
+      config: result.config
+    });
+    setCurrentPage('report');
+    loadHistory();
   };
 
   const loadHistory = async () => {
@@ -126,14 +109,14 @@ function App() {
 )}
         
         {currentPage === 'report' && reportData && (
-          <FinalReport 
-            report={reportData}
-            onNewSession={() => {
-              setSessionData(null);
-              setReportData(null);
-              setCurrentPage('config');
-            }}
-          />
+        <FinalReport 
+    data={reportData}
+    onRestart={() => {
+      setSessionData(null);
+      setReportData(null);
+      setCurrentPage('config');
+    }}
+/>
         )}
         
         {currentPage === 'history' && (
