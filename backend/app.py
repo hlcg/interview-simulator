@@ -185,7 +185,7 @@ async def generate_questions(req: GenerateQuestionsRequest):
     try:
         client = get_client()
         
-        num_questions = min(5, max(3, req.duration // 10))
+        num_questions = max(3, min(15, req.duration // 3))
         
         prompt = f"""Tu es un recruteur expérimenté dans le secteur {req.sector}.
 
@@ -195,7 +195,8 @@ CV du candidat: {req.cv}
 
 Durée de l'entretien: {req.duration} minutes
 Ton de l'entretien: {"bienveillant et encourageant" if req.tone == "friendly" else "professionnel et neutre" if req.tone == "professional" else "critique et exigeant"}
-Génère exactement {num_questions} questions d'entretien pertinentes et structurées.
+Génère EXACTEMENT {num_questions} questions d'entretien pertinentes et variées, adaptées au profil du candidat et à l'offre d'emploi.
+Les questions doivent couvrir: expérience, compétences techniques, motivation, situations concrètes, projets.
 
 Réponds UNIQUEMENT en JSON avec cette structure exacte:
 {{"questions": ["question1", "question2", "question3"]}}
