@@ -234,7 +234,7 @@ async def analyze_answer(req: AnalyzeAnswerRequest):
 
 Question: {req.question}
 Réponse: {req.answer}
-Ton attendu: {req.tone}
+Ton attendu: {"bienveillant et encourageant, mets en valeur les points positifs avant les axes d'amélioration" if req.tone == "friendly" else "professionnel et constructif" if req.tone == "professional" else "critique et exigeant, sois direct sur les faiblesses"}
 
 Évalue la réponse sur ces critères:
 1. Pertinence et clarté (0-100)
