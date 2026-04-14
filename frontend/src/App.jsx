@@ -114,16 +114,16 @@ function App() {
           <ConfigSession onSessionStart={handleStartInterview} />
         )}
         
-        {currentPage === 'interview' && sessionData && (
-          <InterviewSession 
-            sessionData={sessionData}
-            onComplete={handleAnswersComplete}
-            onCancel={() => {
-              setSessionData(null);
-              setCurrentPage('config');
-            }}
-          />
-        )}
+      {currentPage === 'interview' && sessionData && (
+  <InterviewSession 
+    config={sessionData}
+    onComplete={handleAnswersComplete}
+    onCancel={() => {
+      setSessionData(null);
+      setCurrentPage('config');
+    }}
+  />
+)}
         
         {currentPage === 'report' && reportData && (
           <FinalReport 
