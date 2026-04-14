@@ -31,9 +31,12 @@ function ConfigSession({ onSessionStart }) {
         tone: tone
       });
 
-      if (questionsResponse.ok === false) {
-        throw new Error(questionsResponse.error || 'Erreur API');
-      }
+    if (questionsResponse.error) {
+    throw new Error(questionsResponse.error);
+}
+if (!questionsResponse.questions || questionsResponse.questions.length === 0) {
+    throw new Error('Aucune question générée');
+}
 
       console.log('✅ Questions générées:', questionsResponse);
 
