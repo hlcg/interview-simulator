@@ -135,6 +135,7 @@ function InterviewSession({ config, onComplete }) {
       if (currentQuestionIndex < questions.length - 1 && !sessionEnded) {
         setCurrentQuestionIndex(prev => prev + 1);
         resetTranscript();
+        stopRecording();
       } else {
         setSessionEnded(true);
         setTimerActive(false);
