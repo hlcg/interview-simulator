@@ -205,7 +205,7 @@ Ne réponds RIEN d'autre que le JSON."""
         
         logger.info("🔧 Calling Anthropic API...")
         message = client.messages.create(
-            model="claude-opus-4-6",
+            model="claude-sonnet-4-6",
             max_tokens=1000,
             messages=[{"role": "user", "content": prompt}]
         )
