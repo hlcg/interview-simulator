@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import API from './api';
 import ConfigSession from './components/ConfigSession';
 import InterviewSession from './components/InterviewSession';
 import FinalReport from './components/FinalReport';
