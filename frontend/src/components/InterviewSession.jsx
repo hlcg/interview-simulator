@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { API } from '../api';
 import useAudioRecorder from '../hooks/useAudioRecorder';
-
+ 
 function InterviewSession({ config, onComplete }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
