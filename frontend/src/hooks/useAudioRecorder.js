@@ -7,6 +7,11 @@ function useAudioRecorder() {
 
   const resetTranscript = useCallback(() => {
     setTranscript('');
+    if (recognitionRef.current) {
+        recognitionRef.current.abort();
+        recognitionRef.current = null;
+    }
+    setIsRecording(false);
   }, []);
 
   const startRecording = useCallback(async () => {
