@@ -154,6 +154,7 @@ class AnswerRequest(BaseModel):
     question_num: int
     question: str
     answer: str
+    tone: str = "professional"
 
 class CompleteSessionRequest(BaseModel):
     session_id: str
