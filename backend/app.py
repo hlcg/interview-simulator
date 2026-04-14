@@ -194,8 +194,7 @@ Offre d'emploi: {req.job_offer}
 CV du candidat: {req.cv}
 
 Durée de l'entretien: {req.duration} minutes
-Ton: {req.tone}
-
+Ton de l'entretien: {"bienveillant et encourageant" if req.tone == "friendly" else "professionnel et neutre" if req.tone == "professional" else "critique et exigeant"}
 Génère exactement {num_questions} questions d'entretien pertinentes et structurées.
 
 Réponds UNIQUEMENT en JSON avec cette structure exacte:
