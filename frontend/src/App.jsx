@@ -18,7 +18,13 @@ function App() {
       const response = await fetch('https://interview-backend-production-eaed.up.railway.app/api/session/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config)
+        body: JSON.stringify({
+  sector: config.sector,
+  job_offer: config.jobOffer,
+  cv: config.cv,
+  duration: config.duration,
+  tone: config.tone
+})
       });
       
       const data = await response.json();
