@@ -110,7 +110,7 @@ function App() {
 
       <main className="app-main">
         {currentPage === 'config' && (
-          <ConfigSession onStart={handleStartInterview} />
+          <ConfigSession onSessionStart={handleStartInterview} />
         )}
         
         {currentPage === 'interview' && sessionData && (
