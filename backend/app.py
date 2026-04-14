@@ -360,20 +360,25 @@ async def complete_session(req: CompleteSessionRequest):
             f"Q{i+1}: {a.get('question', '')}\nA: {a.get('answer', '')}\nScore: {a.get('score', 'N/A')}"
             for i, a in enumerate(req.answers)
         ])
-        
-        prompt = f"""Génère un rapport final d'entretien basé sur ces réponses:
+        tone_label = "bienveillant et encourageant" if req.tone == "friendly" else "professionnel" if req.tone == "professional" else "critique et exigeant"
+        prompt = f"""Tu es un recruteur rédigeant un rapport d'entretien détaillé.
+Secteur: {req.sector}
+Ton: {tone_label}
 
+Réponses du candidat:
 {answers_text}
 
-Fournis:
-- overall_score (0-100): moyenne générale
-- summary (1-2 lignes): résumé global
-- strengths (liste): points forts du candidat
-- improvements (liste): axes d'amélioration
+Génère un rapport complet avec:
+- overall_score (0-100): moyenne pondérée honnête
+- summary (3-4 phrases): analyse globale du candidat, son profil, ses points marquants, son adéquation au poste
+- strengths (3-5 points): points forts concrets observés
+- improvements (3-5 points): axes d'amélioration concrets
+- recommendation: conseils personnalisés pour progresser
+
+Le rapport doit être en français, respecter le ton {tone_label}, et être basé uniquement sur les réponses fournies.
 
 Réponds UNIQUEMENT en JSON:
-{{"overall_score": 78, "summary": "...", "strengths": [...], "improvements": [...]}}
-
+{{"overall_score": 72, "summary": "...", "strengths": ["...", "..."], "improvements": ["...", "..."], "recommendation": "..."}}
 Ne réponds RIEN d'autre."""
         
         message = client.messages.create(
