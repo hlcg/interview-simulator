@@ -298,16 +298,22 @@ async def save_answer(req: AnswerRequest):
     try:
         client = get_client()
         
-        prompt = f"""Évalue rapidement cette réponse d'entretien:
-
+        prompt = f"""Tu es un recruteur EXIGEANT évaluant une réponse d'entretien.
 Question: {req.question}
-Réponse: {req.answer}
+Réponse du candidat: {req.answer}
+Ton attendu: {"bienveillant mais honnête" if req.tone == "friendly" else "professionnel et objectif" if req.tone == "professional" else "critique et exigeant"}
 
-Score de 0 à 100 et feedback court (max 50 mots).
+Évalue STRICTEMENT et HONNÊTEMENT:
+- Réponse vague, courte ou hors sujet = score bas (0-40)
+- Réponse correcte mais sans détails = score moyen (40-65)
+- Réponse structurée avec exemples concrets = score élevé (65-85)
+- Réponse excellente et complète = score très élevé (85-100)
+
+IMPORTANT: Le feedback doit respecter le ton attendu, mais le score doit rester honnête.
+Feedback en 2-3 phrases max.
 
 Réponds UNIQUEMENT en JSON:
-{{"score": 75, "feedback": "Bonne réponse"}}
-
+{{"score": 45, "feedback": "..."}}
 Ne réponds RIEN d'autre."""
         
         message = client.messages.create(
