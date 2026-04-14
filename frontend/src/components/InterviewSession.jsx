@@ -40,18 +40,31 @@ function InterviewSession({ config, onComplete }) {
   }, [config]);
 
   // Text-to-Speech pour la question
-  const playQuestion = async () => {
-    if (!currentQuestion) return;
-
-    try {
-      setIsPlaying(true);
-      await API.textToSpeech(currentQuestion, 'fr');
-      setIsPlaying(false);
-    } catch (err) {
-      console.error('❌ Erreur TTS:', err);
+ const playQuestion = async () => {
+  if (!currentQuestion) return;
+  try {
+    setIsPlaying(true);
+    const response = await API.textToSpeech(currentQuestion, 'fr');
+    
+    if (response.audio) {
+      // Convertir hex en blob audio et jouer
+      const bytes = new Uint8Array(response.audio.match(/.{1,2}/g).map(b => parseInt(b, 16)));
+      const blob = new Blob([bytes], { type: 'audio/mpeg' });
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio.onended = () => {
+        setIsPlaying(false);
+        URL.revokeObjectURL(url);
+      };
+      audio.play();
+    } else {
       setIsPlaying(false);
     }
-  };
+  } catch (err) {
+    console.error('❌ Erreur TTS:', err);
+    setIsPlaying(false);
+  }
+};
 
   // Sauvegarder la réponse
   const handleSubmitAnswer = async () => {
