@@ -370,7 +370,7 @@ Réponds UNIQUEMENT en JSON:
 Ne réponds RIEN d'autre."""
         
         message = client.messages.create(
-            model="claude-opus-4-6",
+            model="claude-sonnet-4-6",
             max_tokens=1000,
             messages=[{"role": "user", "content": prompt}]
         )
