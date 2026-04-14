@@ -231,25 +231,22 @@ async def analyze_answer(req: AnalyzeAnswerRequest):
         client = get_client()
         
         prompt = f"""Tu es un recruteur évaluant une réponse d'entretien.
-
 Question: {req.question}
 Réponse: {req.answer}
 Ton attendu: {"bienveillant et encourageant, mets en valeur les points positifs avant les axes d'amélioration" if req.tone == "friendly" else "professionnel et constructif" if req.tone == "professional" else "critique et exigeant, sois direct sur les faiblesses"}
 
+IMPORTANT: Ton feedback doit OBLIGATOIREMENT respecter le ton attendu ci-dessus.
 Évalue la réponse sur ces critères:
 1. Pertinence et clarté (0-100)
 2. Expérience démontrée (0-100)
 3. Adaptabilité au ton demandé (0-100)
-
 Calcule un score moyen (0-100).
-
 Réponds UNIQUEMENT en JSON:
 {{"score": 85, "feedback": "Excellente réponse car..."}}
-
 Ne réponds RIEN d'autre que le JSON."""
         
         message = client.messages.create(
-            model="claude-opus-4-6",
+            model="claude-sonnet-4-6",
             max_tokens=500,
             messages=[{"role": "user", "content": prompt}]
         )
