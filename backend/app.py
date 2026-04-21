@@ -200,7 +200,7 @@ Génère EXACTEMENT {num_questions} questions d'entretien pertinentes et variée
 Les questions doivent couvrir: expérience, compétences techniques, motivation, situations concrètes, projets.
 
 Réponds UNIQUEMENT en JSON avec cette structure exacte:
-{{"questions": ["question1", "question2", "question3"]}}
+{{"questions": ["question1", "question2", ..., "question{num_questions}"]}}
 
 Ne réponds RIEN d'autre que le JSON."""
         
