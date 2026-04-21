@@ -160,6 +160,7 @@ class CompleteSessionRequest(BaseModel):
     session_id: str
     answers: list
     tone: str = "professional"
+    sector: str = ""
 
 class TextToSpeechRequest(BaseModel):
     text: str
